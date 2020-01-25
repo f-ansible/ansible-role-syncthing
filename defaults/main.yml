@@ -1,0 +1,4 @@
+---
+# defaults file for ar_syncthing
+
+syncthing_url_key: https://syncthing.net/release-key.txt

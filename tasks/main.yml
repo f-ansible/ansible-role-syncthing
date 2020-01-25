@@ -1,0 +1,34 @@
+---
+# tasks file for ar_syncthing
+# - name: Install Docker and role dependencies
+#   apt:
+#     name: "{{ item }}"
+#     state: "present"
+#     install_recommends: False
+#   with_items:
+#     - "apt-transport-https"
+#     - "ca-certificates"
+#     - "software-properties-common"
+
+- name: Install dependencies
+  apt:
+    name: ['gpg']
+    state: present
+
+- name: Add the release PGP keys
+  apt_key:
+    url: "{{ syncthing_url_key }}"
+    state: present
+
+- name: Add the 'stable' channel to APT sources
+  apt_repository:
+    repo: deb https://apt.syncthing.net/ syncthing stable
+    state: present
+
+- name: Install syncthing
+  apt:
+    name: syncthing
+    state: present
+    autoclean: yes
+    autoremove: yes
+
